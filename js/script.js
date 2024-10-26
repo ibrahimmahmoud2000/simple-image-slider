@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const paginationDots = document.querySelectorAll(".dot");
 
   function updateSlider(index) {
+    slides.forEach((slide) => slide.classList.remove("fade-in")); // Remove fade class from all slides
+    slides[index].classList.add("fade-in"); // Apply fade to current slide
     slider.style.transform = `translateX(-${index * 100}%)`;
     paginationDots.forEach((dot) => dot.classList.remove("active"));
     paginationDots[index].classList.add("active");
@@ -38,6 +40,10 @@ document.addEventListener("DOMContentLoaded", function () {
       updateSlider(currentIndex);
     });
   });
+  let styleElement = document.createElement("style");
+  styleElement.innerHTML = `.fade-in { opacity: 0; animation: fade-in 1.2s forwards; }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }`;
+  document.head.appendChild(styleElement);
 
   slider.addEventListener("mouseover", stopAutoSlide);
   slider.addEventListener("mouseout", startAutoSlide);
